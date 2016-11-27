@@ -1,6 +1,8 @@
 require 'icalendar'
 require 'mechanize'
 
+# 実行日時の先月、当月、来月のTRPGイベントカレンダー(仮)をiCal方式に変換する
+
 calendar = Icalendar::Calendar.new
 calendar.timezone do |t|
   t.tzid = 'Asia/Tokyo'
