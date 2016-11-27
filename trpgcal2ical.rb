@@ -18,7 +18,8 @@ calendar.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'TRPGイベントカ�
 agent = Mechanize.new
 [Date.today.prev_month, Date.today, Date.today.next_month].each do |d|
   begin
-    page = agent.get("http://trpg_calendar.alchemist.ne.jp/cgi/webcal.cgi?form=2&year=#{d.year}&mon=#{d.month}")
+    uri = URI::HTTP.new('http', nil, 'trpg_calendar.alchemist.ne.jp', nil, nil, '/cgi/webcal.cgi', nil, "form=2&year=#{d.year}&mon=#{d.month}", nil) # Ruby 2.1.5など古い処理系でアンダースコアを含むホストネームをparseさせるとエラーになるのでこうしてみている
+    page = agent.get(uri)
     trs = page.search('table:nth-of-type(2) tr') # なぜかtable[3]だと取れない
     trs[1..-1].each do |tr| # 一番上のテーブルヘッダーは飛ばす
       tds = tr.search('td')
