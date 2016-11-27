@@ -1,6 +1,5 @@
 require 'icalendar'
 require 'mechanize'
-require 'addressable/uri'
 
 # 実行日時の先月、当月、来月のTRPGイベントカレンダー(仮)をiCal方式に変換する
 
@@ -19,8 +18,7 @@ calendar.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'TRPGイベントカ�
 agent = Mechanize.new
 [Date.today.prev_month, Date.today, Date.today.next_month].each do |d|
   begin
-    uri = Addressable::URI.parse("http://trpg_calendar.alchemist.ne.jp/cgi/webcal.cgi?form=2&year=#{d.year}&mon=#{d.month}") # サブドメインにアンダースコアが含まれているせいで若干古い環境だと例外が出るためAddressable::URIを利用する
-    page = agent.get(uri)
+    page = agent.get("http://trpg_calendar.alchemist.ne.jp/cgi/webcal.cgi?form=2&year=#{d.year}&mon=#{d.month}")
     trs = page.search('table:nth-of-type(2) tr') # なぜかtable[3]だと取れない
     trs[1..-1].each do |tr| # 一番上のテーブルヘッダーは飛ばす
       tds = tr.search('td')

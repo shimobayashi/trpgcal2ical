@@ -1,7 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.3.8)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     http-cookie (1.0.2)
@@ -32,7 +31,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  addressable
   icalendar
   mechanize
 
